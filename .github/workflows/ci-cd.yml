@@ -55,7 +55,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         shell: pwsh
         run: |
-          choco install llvm --version=22.1.6 --no-progress
+          choco install llvm --version=22.1.7 --no-progress
           $llvmRoot = & choco find llvm --local | Select-String 'Location:' | ForEach-Object { $_.Line.Split(':')[1].Trim() }
           $llvmBin = Join-Path $llvmRoot "bin"
           echo "LLVM_SYS_221_PREFIX=$llvmRoot" >> $env:GITHUB_ENV
