@@ -1,6 +1,5 @@
-
-use inkwell::context::Context;
 use inkwell::OptimizationLevel;
+use inkwell::context::Context;
 use std::env;
 
 use Coconut_Compiler::{Codegen, Filter, Lexer, Parser, StdLib};
@@ -69,14 +68,19 @@ fn main() {
             unsafe {
                 inkwell::support::load_library_permanently(std::path::Path::new(""));
 
-                let execution_engine = match codegen.get_module().create_jit_execution_engine(OptimizationLevel::None) {
+                let execution_engine = match codegen
+                    .get_module()
+                    .create_jit_execution_engine(OptimizationLevel::None)
+                {
                     Ok(ee) => ee,
                     Err(e) => {
                         eprintln!("JIT creation error: {:?}", e);
                         return;
                     }
                 };
-                if let Ok(main_fn) = execution_engine.get_function::<unsafe extern "C" fn() -> i64>("main") {
+                if let Ok(main_fn) =
+                    execution_engine.get_function::<unsafe extern "C" fn() -> i64>("main")
+                {
                     let result = main_fn.call();
                     println!("  main() returned: {}", result);
                 } else {

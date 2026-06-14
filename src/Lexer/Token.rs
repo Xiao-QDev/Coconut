@@ -53,4 +53,3 @@ pub struct TokenWithSpan {
     pub token: Token,
     pub line: usize,
 }
-

@@ -8,7 +8,9 @@ fn cococ_help() {
     println!("    cococ <command> [arguments]");
     println!();
     println!("The commands are:");
-    println!("    run/cococ run                   <file.coconut> Compile and run a Coconut source file");
+    println!(
+        "    run/cococ run                   <file.coconut> Compile and run a Coconut source file"
+    );
     println!("    help/cococ help                 Show this help message");
     println!("    version/cococ --version         Show compiler version");
     println!();
@@ -19,16 +21,16 @@ fn cococ_version() {
         "linux" => "Linux",
         "macos" => "MacOS",
         "windows" => "Windows",
-    other => other,
-};
+        other => other,
+    };
 
-let arch = match env::consts::ARCH {
+    let arch = match env::consts::ARCH {
         "x86_64" => "amd64",
         "aarch64" => "arm64",
         "x86" => "386",
         "arm" => "arm32",
-    other => other,
-};
+        other => other,
+    };
     println!("Coconut_Compiler version Coconut0.0.1 ({}/{})", os, arch);
 }
 
@@ -119,12 +121,12 @@ fn main() {
 }
 
 fn compile_and_run(filename: &str) {
-    use inkwell::context::Context;
-    use inkwell::OptimizationLevel;
+    use Coconut_Compiler::Codegen::Llvm_Gen::CodeGenerator;
     use Coconut_Compiler::Lexer::Lexer::Lexer;
     use Coconut_Compiler::Parser::Parser::Parser;
-    use Coconut_Compiler::Codegen::Llvm_Gen::CodeGenerator;
     use Coconut_Compiler::StdLib::pio;
+    use inkwell::OptimizationLevel;
+    use inkwell::context::Context;
     if !filename.ends_with(".coconut") {
         eprintln!("Error: '{}' is not a .coconut file", filename);
         process::exit(1);
@@ -173,14 +175,19 @@ fn compile_and_run(filename: &str) {
             println!();
             unsafe {
                 inkwell::support::load_library_permanently(std::path::Path::new(""));
-                let execution_engine = match codegen.get_module().create_jit_execution_engine(OptimizationLevel::None) {
+                let execution_engine = match codegen
+                    .get_module()
+                    .create_jit_execution_engine(OptimizationLevel::None)
+                {
                     Ok(ee) => ee,
                     Err(e) => {
                         eprintln!("JIT creation error: {:?}", e);
                         process::exit(1);
                     }
                 };
-                if let Ok(main_fn) = execution_engine.get_function::<unsafe extern "C" fn() -> i64>("main") {
+                if let Ok(main_fn) =
+                    execution_engine.get_function::<unsafe extern "C" fn() -> i64>("main")
+                {
                     let result = main_fn.call();
                     println!("  main() returned: {}", result);
                 } else {

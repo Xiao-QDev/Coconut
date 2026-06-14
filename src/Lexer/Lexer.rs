@@ -125,11 +125,13 @@ impl Lexer {
             num_str.push(self.advance());
         }
         if is_float {
-            let value = num_str.parse::<f64>()
+            let value = num_str
+                .parse::<f64>()
                 .map_err(|_| format!("Invalid float number: {}", num_str))?;
             Ok(Token::FloatLiteral(value))
         } else {
-            let value = num_str.parse::<i64>()
+            let value = num_str
+                .parse::<i64>()
                 .map_err(|_| format!("Invalid number: {}", num_str))?;
             Ok(Token::IntLiteral(value))
         }

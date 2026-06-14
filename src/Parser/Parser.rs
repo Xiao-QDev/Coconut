@@ -52,12 +52,9 @@ impl Parser {
         } else {
             None
         };
-        Ok(Import {
-            path,
-            alias,
-        })
+        Ok(Import { path, alias })
     }
-    
+
     fn parse_package(&mut self) -> Result<String, String> {
         self.consume(Token::Package, "Expected 'package'")?;
         let name = self.consume_identifier()?;
@@ -90,10 +87,7 @@ impl Parser {
             loop {
                 let name = self.consume_identifier()?;
                 let param_type = self.parse_type()?;
-                params.push(Parameter {
-                    name,
-                    param_type,
-                });
+                params.push(Parameter { name, param_type });
                 if !self.match_token(Token::Comma) {
                     break;
                 }
@@ -269,10 +263,7 @@ impl Parser {
         let name = self.consume_identifier()?;
         self.consume(Token::ColonEqual, "Expected ':='")?;
         let value = self.parse_expression()?;
-        Ok(ShortDecl {
-            name,
-            value,
-        })
+        Ok(ShortDecl { name, value })
     }
 
     fn parse_if_stmt(&mut self) -> Result<IfStmt, String> {
@@ -351,9 +342,13 @@ impl Parser {
     fn parse_comparison(&mut self) -> Result<Expr, String> {
         let mut expr = self.parse_addition()?;
 
-        while self.check(Token::Greater) || self.check(Token::Less) ||
-              self.check(Token::GreaterEqual) || self.check(Token::LessEqual) ||
-              self.check(Token::EqualEqual) || self.check(Token::NotEqual) {
+        while self.check(Token::Greater)
+            || self.check(Token::Less)
+            || self.check(Token::GreaterEqual)
+            || self.check(Token::LessEqual)
+            || self.check(Token::EqualEqual)
+            || self.check(Token::NotEqual)
+        {
             let operator = if self.match_token(Token::Greater) {
                 Operator::Greater
             } else if self.match_token(Token::Less) {
@@ -519,7 +514,6 @@ impl Parser {
             Err(format!("Expected identifier at line {}", self.peek().line))
         }
     }
-
 
     fn peek(&self) -> &TokenWithSpan {
         &self.tokens[self.current]
