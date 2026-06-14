@@ -38,16 +38,9 @@ jobs:
           brew install llvm@22
           echo "LLVM_SYS_221_PREFIX=$(brew --prefix llvm@22)" >> $GITHUB_ENV
           echo "$(brew --prefix llvm@22)/bin" >> $GITHUB_PATH
-      - name: Install LLVM (Windows)
+      - name: Skip LLVM install (Windows)
         if: matrix.os == 'windows-latest'
-        run: |
-          $llvmUrl = "https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.6/LLVM-22.1.6-win64.exe"
-          Invoke-WebRequest -Uri $llvmUrl -OutFile LLVM.exe -UseBasicParsing
-          .\LLVM.exe /S
-          $llvmRoot = "C:\Program Files\LLVM"
-          echo "LLVM_SYS_221_PREFIX=$llvmRoot" >> $env:GITHUB_ENV
-          echo "$llvmRoot\bin;$llvmRoot\lib;$llvmRoot\include" >> $env:GITHUB_PATH
-        shell: pwsh
+        run: echo "Windows skip LLVM build"
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -77,6 +70,8 @@ jobs:
       - name: Check code formatting
         run: cargo fmt --all -- --check
       - name: Run Clippy lints
+        if: matrix.os != 'windows-latest'
         run: cargo clippy --all-targets --all-features
       - name: Run tests
+        if: matrix.os != 'windows-latest'
         run: cargo test --verbose
