@@ -38,7 +38,7 @@ jobs:
           brew install llvm@22
           echo "LLVM_SYS_221_PREFIX=$(brew --prefix llvm@22)" >> $GITHUB_ENV
           echo "$(brew --prefix llvm@22)/bin" >> $GITHUB_PATH
-      - name:LLVM install (Windows)
+      - name: install LLVM (Windows)
         if: matrix.os == 'windows-latest'
         run: echo "Windows skip LLVM build"
       - name: Setup Rust toolchain
