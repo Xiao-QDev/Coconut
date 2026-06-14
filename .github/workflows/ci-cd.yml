@@ -1,6 +1,6 @@
 # ============================================================
 # Coconut Compiler CI/CD 工作流
-# 功能：自动化代码质量检查与测试
+# 功能：自动化代码质量检查与测试（含自动格式化）
 # 触发条件：
 #   - 推送到 main 分支
 #   - 创建或更新 Pull Request
@@ -14,42 +14,29 @@ on:
   pull_request:
     branches: [main]
 
-# ----------------------------------------------------------
-# 环境变量配置
-# ----------------------------------------------------------
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  # ========================================================
-  # 任务一：代码质量检查与测试
-  # ========================================================
   check-and-test:
     name: Code Quality & Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 必须给 CI 写权限，才能提交格式化后的代码
 
     steps:
-      # ---------------------------
-      # 步骤 1：检出代码仓库
-      # ---------------------------
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # 升级到 v4，解决 Node.js 20 警告
+        with:
+          fetch-depth: 0 # 拉取完整历史，确保能正常提交
 
-      # ---------------------------
-      # 步骤 2：配置 Rust 工具链
-      # 安装指定版本的 Rust 编译器及相关工具
-      # ---------------------------
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
 
-      # ---------------------------
-      # 步骤 3：缓存 Cargo 依赖与编译产物
-      # 加速后续的依赖安装和编译过程
-      # ---------------------------
       - name: Cache Cargo registry and build artifacts
-        uses: actions/cache@v4
+        uses: actions/cache@v4 # 升级到 v4，解决 Node.js 20 警告
         with:
           path: |
             ~/.cargo/registry
@@ -58,44 +45,39 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-cargo-
 
-      # ---------------------------
-      # 步骤 4：安装项目依赖
-      # 通过 cargo fetch 预下载所有依赖
-      # ---------------------------
       - name: Fetch dependencies
         run: cargo fetch
 
       # ---------------------------
-      # 步骤 5：代码格式化检查
-      # 确保代码符合 Rust 标准格式规范
+      # 新增：自动格式化代码并提交
+      # ---------------------------
+      - name: Auto format code and commit
+        run: |
+          # 运行 rustfmt 自动格式化所有代码
+          cargo fmt --all
+          
+          # 配置 CI 的 Git 用户信息
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 检查是否有文件被修改
+          if git diff --quiet; then
+            echo "No formatting changes needed"
+          else
+            # 提交并推送格式化后的代码
+            git add .
+            git commit -m "chore: auto format code via CI"
+            git push
+          fi
+
+      # ---------------------------
+      # 格式化后的二次检查（确保万无一失）
       # ---------------------------
       - name: Check code formatting
         run: cargo fmt --all -- --check
-        continue-on-error: false # 格式不通过直接失败
 
-      # ---------------------------
-      # 步骤 6：Clippy 静态分析
-      # 检测潜在 bug、性能问题和不规范代码
-      # ---------------------------
       - name: Run Clippy lints
         run: cargo clippy --all-targets --all-features -- -D warnings
 
-      # ---------------------------
-      # 步骤 7：执行单元测试与集成测试
-      # 运行项目中定义的所有测试用例
-      # ---------------------------
       - name: Run tests
         run: cargo test --verbose
-
-      # ---------------------------
-      # 步骤 8：缓存后处理（可选但推荐）
-      # ---------------------------
-      - name: Post Cache Cargo registry and build artifacts
-        uses: actions/cache@v4
-        if: always()
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
