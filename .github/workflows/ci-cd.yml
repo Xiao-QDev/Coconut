@@ -56,7 +56,8 @@ jobs:
         shell: pwsh
         run: |
           choco install llvm --version=22.1.7 --no-progress
-          $llvmRoot = & choco find llvm --local | Select-String 'Location:' | ForEach-Object { $_.Line.Split(':')[1].Trim() }
+          $regKey = "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\LLVM"
+          $llvmRoot = (Get-ItemProperty -Path $regKey -ErrorAction Stop).InstallLocation
           $llvmBin = Join-Path $llvmRoot "bin"
           echo "LLVM_SYS_221_PREFIX=$llvmRoot" >> $env:GITHUB_ENV
           echo "$llvmBin" >> $env:GITHUB_PATH
@@ -78,7 +79,7 @@ jobs:
       - name: Fetch dependencies
         run: cargo fetch
       - name: Auto format code and commit
-        if: matrix.os == 'linux-latest' && github.event_name == 'push'
+        if: matrix.os == 'ubuntu-latest' && github.event_name == 'push'
         run: |
           cargo fmt --all
           git config --global user.name "github-actions[bot]"
