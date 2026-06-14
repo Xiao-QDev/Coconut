@@ -52,12 +52,17 @@ jobs:
         if: matrix.os == 'windows-latest'
         shell: pwsh
         run: |
-          choco install llvm --version=22.1.7 --no-progress
+          $url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.7/LLVM-22.1.7-win64.exe"
+          $installer = "llvm22.exe"
+          Invoke-WebRequest -Uri $url -OutFile $installer -UseBasicParsing
+          Start-Process -FilePath .\$installer -ArgumentList "/S" -Wait -NoNewWindow
           $llvmRoot = "C:\Program Files\LLVM"
+          $llvmBin = Join-Path $llvmRoot "bin"
           echo "LLVM_SYS_221_PREFIX=$llvmRoot" >> $env:GITHUB_ENV
-          echo "$llvmRoot\bin" >> $env:GITHUB_PATH
-          $env:PATH += ";$llvmRoot\bin"
-          llvm-config --version
+          echo "$llvmBin" >> $env:GITHUB_PATH
+          $env:PATH += ";$llvmBin"
+          & "$llvmBin\llvm-config.exe" --version
+
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
