@@ -1,28 +1,23 @@
 name: Rust CI/CD Pipeline
-
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
 env:
   CARGO_TERM_COLOR: always
   LLVM_SYS_221_PREFIX: /usr/lib/llvm-22
-
 jobs:
   check-and-test:
     name: Code Quality & Tests
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Install LLVM 22
         run: |
           sudo apt-get update
@@ -31,12 +26,10 @@ jobs:
           chmod +x llvm.sh
           sudo ./llvm.sh 22 all
           sudo ln -s /usr/lib/llvm-22/bin/llvm-config /usr/bin/llvm-config
-
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
-
       - name: Cache Cargo registry and build artifacts
         uses: actions/cache@v4
         with:
@@ -46,10 +39,8 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-cargo-
-
       - name: Fetch dependencies
         run: cargo fetch
-
       - name: Auto format code and commit
         run: |
           cargo fmt --all
@@ -60,13 +51,10 @@ jobs:
             git commit -m "chore: auto format code via CI"
             git push
           fi
-
       - name: Check code formatting
         run: cargo fmt --all -- --check
-
-      # 已移除 -D warnings，仅检查不阻断
+#-------
       - name: Run Clippy lints
         run: cargo clippy --all-targets --all-features
-
       - name: Run tests
         run: cargo test --verbose
