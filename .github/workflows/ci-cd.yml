@@ -44,8 +44,9 @@ jobs:
           $llvmUrl = "https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.6/LLVM-22.1.6-win64.exe"
           Invoke-WebRequest -Uri $llvmUrl -OutFile LLVM.exe -UseBasicParsing
           .\LLVM.exe /S
-          echo "LLVM_SYS_221_PREFIX=C:\Program Files\LLVM" >> $env:GITHUB_ENV
-          echo "C:\Program Files\LLVM\bin" >> $env:GITHUB_PATH
+          $llvmRoot = "C:\Program Files\LLVM"
+          echo "LLVM_SYS_221_PREFIX=$llvmRoot" >> $env:GITHUB_ENV
+          echo "$llvmRoot\bin;$llvmRoot\lib;$llvmRoot\include" >> $env:GITHUB_PATH
         shell: pwsh
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
