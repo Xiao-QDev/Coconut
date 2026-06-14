@@ -21,9 +21,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-# Linux install llvm-config
+
+      # Linux install llvm
       - name: Install LLVM 22 (Linux)
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'linux-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y lsb-release wget software-properties-common gnupg
@@ -33,7 +34,8 @@ jobs:
           sudo ln -s /usr/lib/llvm-22/bin/llvm-config /usr/bin/llvm-config
           echo "LLVM_SYS_221_PREFIX=/usr/lib/llvm-22" >> $GITHUB_ENV
           echo "/usr/lib/llvm-22/bin" >> $GITHUB_PATH
-# MacOS install llvm-config
+
+      # MacOS install llvm
       - name: Install LLVM 22 (MacOS)
         if: matrix.os == 'macos-latest'
         shell: bash
@@ -47,13 +49,15 @@ jobs:
           echo "CPPFLAGS=-I/opt/homebrew/opt/llvm/include" >> $GITHUB_ENV
           echo "LDFLAGS=-L/opt/homebrew/opt/llvm/lib" >> $GITHUB_ENV
           echo "CMAKE_PREFIX_PATH=/opt/homebrew/opt/llvm" >> $GITHUB_ENV
-# Windows install llvm
+
+      # Windows install LLVM 22
       - name: Install LLVM 22 (Windows)
         if: matrix.os == 'windows-latest'
-        uses: ilammy/setup-llvm@v1
-        with:
-          llvm-version: 22
-          add-to-path: true
+        shell: pwsh
+        run: |
+          choco install llvm --version=22.1.7 --no-progress
+          echo "LLVM_SYS_221_PREFIX=C:\Program Files\LLVM" >> $env:GITHUB_ENV
+          echo "C:\Program Files\LLVM\bin" >> $env:GITHUB_PATH
 
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -71,7 +75,7 @@ jobs:
       - name: Fetch dependencies
         run: cargo fetch
       - name: Auto format code and commit
-        if: matrix.os == 'ubuntu-latest' && github.event_name == 'push'
+        if: matrix.os == 'linux-latest' && github.event_name == 'push'
         run: |
           cargo fmt --all
           git config --global user.name "github-actions[bot]"
