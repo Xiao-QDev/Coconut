@@ -56,12 +56,11 @@ jobs:
         shell: pwsh
         run: |
           choco install llvm --version=22.1.7 --no-progress
-          $llvmRoot = "C:\Program Files\LLVM"
-          $llvmBin = "$llvmRoot\bin"
+          $llvmRoot = "C:\ProgramData\chocolatey\lib\llvm\tools\LLVM"
+          $llvmBin = Join-Path $llvmRoot "bin"
           echo "LLVM_SYS_221_PREFIX=$llvmRoot" >> $env:GITHUB_ENV
           echo "$llvmBin" >> $env:GITHUB_PATH
-          $env:PATH += ";$llvmBin"
-          llvm-config --version
+          & "$llvmBin\llvm-config.exe" --version
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
