@@ -1,9 +1,10 @@
-# Coconut Programming Language
+# The Coconut Programming Language
 
 Coconut is a statically typed systems programming language implemented in Rust with LLVM as its compilation backend. The language adopts Go-inspired syntax conventions and provides built-in JIT execution capabilities.
 
 [![Rust](https://img.shields.io/badge/Rust-1.95%2B-orange?logo=rust)](https://www.rust-lang.org/)
 [![LLVM](https://img.shields.io/badge/LLVM-22.1.6-blue?logo=llvm)](https://llvm.org/)
+.[![Coconut](https://img.shields.io/badge/-Coconut_Lang-8F5E28?logo=data:image/png;base64,aHR0cHM6Ly9naXRodWIuZ2l0aHViYXNzZXRzLmNvbS9pbWFnZXMvaWNvbnMvZW1vamkvdW5pY29kZS8xZjk2NS5wbmc=&logoColor=white)
 [![License](https://img.shields.io/badge/License-Apache--2.0-green.svg)](LICENSE)
 
 ---
