@@ -9,7 +9,7 @@ fn cococ_help() {
     println!();
     println!("The commands are:");
     println!(
-        "    run/cococ run                   <file.coconut> Compile and run a Coconut source file"
+        "    run/cococ run                   <file.cocl> Compile and run a Coconut source file"
     );
     println!("    help/cococ help                 Show this help message");
     println!("    version/cococ --version         Show compiler version");
@@ -91,7 +91,7 @@ fn main() {
                     "run" => {
                         if parts.len() < 2 {
                             eprintln!("Error: No input file specified");
-                            eprintln!("Usage: run <file.coconut>");
+                            eprintln!("Usage: run <file.cocl>");
                         } else {
                             compile_and_run(parts[1]);
                         }
