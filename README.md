@@ -42,7 +42,7 @@ cargo build --release
 
 ### Example Program
 
-Create a source file named `example.coconut`:
+Create a source file named `example.cocl`:
 
 ```coconut
 package main
@@ -69,7 +69,7 @@ Execute with JIT compiler:
 
 ```bash
 Open your Coconut_Compiler
-Execute: ./cococ example.coconut
+Execute: ./cococ example.cocl
 ```
 
 ---
