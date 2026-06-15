@@ -4,7 +4,7 @@ pub fn is_coconut_file(path: &str) -> bool {
     let path = Path::new(path);
 
     match path.extension() {
-        Some(ext) => ext == "coconut",
+        Some(ext) => ext == "cocl",
         None => false,
     }
 }
