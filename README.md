@@ -68,8 +68,8 @@ fn main() int {
 Execute with JIT compiler:
 
 ```bash
-open your Coconut_Compiler Execute
-** ./cococ example.coconut **
+Open your Coconut_Compiler
+Execute: ./cococ example.coconut
 ```
 
 ---
