@@ -171,14 +171,14 @@ The standard print I/O module provides basic output functionality:
 ### Planned Features
 
 - [ ] Floating-point and boolean primitive types
-- [ ] Array and slice data structures
-- [ ] Structure definitions and method implementations
+- [ ] Array and slice data Struct
+- [ ] Struct definitions and method implementations
 - [ ] Pointer types and memory operations
-- [ ] Enhanced error reporting with source location
-- [ ] Comprehensive unit test coverage
+- [ ] Enhanced error reporting with source position tracking
+- [ ] Full unit test coverage
 - [ ] Compiler optimization passes
 - [ ] Self-hosting compiler implementation
-- [ ] Extended standard library
+- [ ] Expanded standard library
 - [ ] Cross-compilation support
 
 ---
@@ -198,4 +198,4 @@ This project is licensed under the Apache License 2.0. See the LICENSE file for 
 ## Development Team
 
 **We are certain to complete self-bootstrapping.**
-Developed and maintained by **Coconut-Dev-Team (CDT)**
+Developed & maintained by **Coconut-Dev-Team (CDT)**
