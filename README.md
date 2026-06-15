@@ -171,7 +171,7 @@ The standard print I/O module provides basic output functionality:
 ### Planned Features
 
 - [ ] Floating-point and boolean primitive types
-- [ ] Array and slice data Struct
+- [ ] Array and slice data struct
 - [ ] Struct definitions and method implementations
 - [ ] Pointer types and memory operations
 - [ ] Enhanced error reporting with source position tracking
@@ -185,17 +185,19 @@ The standard print I/O module provides basic output functionality:
 
 ## Contributing
 
-Contributions to the Coconut compiler project are welcome. Participants may submit issues for bug reports and feature requests, or open pull requests for code contributions.
+Contributions to the Coconut compiler are welcome.
+You may open issues for bug reports and feature requests, or submit pull requests with code changes.
 
 ---
 
 ## License
 
-This project is licensed under the Apache License 2.0. See the LICENSE file for complete terms.
+This project is licensed under the Apache License 2.0.
+See the `LICENSE` file for full terms.
 
 ---
 
 ## Development Team
 
-**We are certain to complete self-bootstrapping.**
+**We are determined to finish our self-hosting implementation.** \
 Developed & maintained by **Coconut-Dev-Team (CDT)**
