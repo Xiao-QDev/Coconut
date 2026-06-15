@@ -4,7 +4,7 @@ Coconut is a statically typed systems programming language implemented in Rust w
 
 [![Rust](https://img.shields.io/badge/Rust-1.95%2B-orange?logo=rust)](https://www.rust-lang.org/)
 [![LLVM](https://img.shields.io/badge/LLVM-22.1.6-blue?logo=llvm)](https://llvm.org/)
-[![Coconut](https://img.shields.io/badge/Coconut_Lang-🥥-8F5E28?style=flat-square)](https://github.com/Xiao-QDev/Coconut)
+[![Coconut](https://img.shields.io/badge/Coconut-0.0.1-8F5E28?style=flat-square)](https://github.com/Xiao-QDev/Coconut)
 [![License](https://img.shields.io/badge/License-Apache--2.0-green.svg)](LICENSE)
 
 ---
