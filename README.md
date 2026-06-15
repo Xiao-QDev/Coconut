@@ -29,8 +29,8 @@ Coconut aims to explore modern compiler construction while maintaining simplicit
 
 ### Prerequisites
 
-- Rust toolchain 1.75 or later
-- LLVM 22.1 development libraries
+- Rust toolchain 1.95 or later
+- LLVM 22.1.6 development libraries
 
 ### Building from Source
 
