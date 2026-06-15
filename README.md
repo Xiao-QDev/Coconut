@@ -155,7 +155,7 @@ The standard print I/O module provides basic output functionality:
 
 ### Completed Features
 
-- [x] Lexical analyzer with full tokenization
++ - [x] Lexical analyzer with full tokenization
 - [x] Recursive descent parser with abstract syntax tree generation
 - [x] LLVM intermediate representation code generation
 - [x] JIT execution engine integration
