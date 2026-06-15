@@ -42,7 +42,7 @@ cargo build --release
 
 ### Example Program
 
-Create a source file named `example.coco`:
+Create a source file named `example.coconut`:
 
 ```coconut
 package main
@@ -60,7 +60,7 @@ fn main() int {
     pio.print("Computed sum: ")
     pio.printi(sum)
     pio.println("")
-    
+
     return 0
 }
 ```
@@ -68,7 +68,8 @@ fn main() int {
 Execute with JIT compiler:
 
 ```bash
-./target/release/cococ example.coco
+open your Coconut_Compiler Execute
+** ./cococ example.coconut **
 ```
 
 ---
