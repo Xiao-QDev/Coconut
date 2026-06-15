@@ -7,13 +7,13 @@ use Coconut_Compiler::{Codegen, Filter, Lexer, Parser, StdLib};
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-        eprintln!("Usage: {} <file.coco>", args[0]);
-        eprintln!("Example: {} test.coco", args[0]);
+        eprintln!("Usage: {} <file.cocl>", args[0]);
+        eprintln!("Example: {} test.cocl", args[0]);
         return;
     }
     let filename = &args[1];
     if !Filter::Filter::is_coconut_file(filename) {
-        eprintln!("✗ Error: '{}' is not a .coco file", filename);
+        eprintln!("✗ Error: '{}' is not a .cocl file", filename);
         return;
     }
     let source = match Filter::Filter::read_coconut_file(filename) {
