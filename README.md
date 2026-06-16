@@ -200,5 +200,4 @@ See the `LICENSE` file for full terms.
 
 ## Development Team
 
-**We are determined to finish our self-hosting implementation.** \
 Developed & maintained by **Coconut-Dev-Team (CDT)**
