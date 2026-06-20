@@ -6,7 +6,7 @@ edition = "2024"
 
 [[bin]]
 name = "cococ"
-path = "src/Command/Commands.rs"
+path = "src/main.rs"
 
 [dependencies]
 inkwell = { version = "0.9.0", features = ["llvm22-1"] }
