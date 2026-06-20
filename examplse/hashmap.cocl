@@ -1,0 +1,24 @@
+//请build使用
+package main
+
+import "pio"
+
+fn main() {
+    pio.Println("=== HashMap Demo ===")
+
+    var map int = pio.HashMapNew()
+
+    pio.HashMapSet(map, "name", "Coconut")
+    pio.HashMapSet(map, "version", "0.1")
+    pio.HashMapSet(map, "type", "compiler")
+
+    pio.Println("name: ", pio.HashMapGet(map, "name"))
+    pio.Println("version: ", pio.HashMapGet(map, "version"))
+    pio.Println("type: ", pio.HashMapGet(map, "type"))
+
+    pio.Println("has 'name': ", pio.HashMapHas(map, "name"))
+    pio.Println("has 'author': ", pio.HashMapHas(map, "author"))
+
+    pio.HashMapSet(map, "version", "1.0")
+    pio.Println("updated version: ", pio.HashMapGet(map, "version"))
+}

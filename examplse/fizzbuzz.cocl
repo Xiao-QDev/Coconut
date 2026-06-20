@@ -1,0 +1,22 @@
+package main
+
+fn fizzbuzz(n int) {
+    pio.Println("=== FizzBuzz 1-30 ===")
+    for i := 1; i <= n; i++ {
+        mod3 := i % 3
+        mod5 := i % 5
+        if mod3 == 0 && mod5 == 0 {
+            pio.Println(i, " -> FizzBuzz")
+        } else if mod3 == 0 {
+            pio.Println(i, " -> Fizz")
+        } else if mod5 == 0 {
+            pio.Println(i, " -> Buzz")
+        } else {
+            pio.Println(i)
+        }
+    }
+}
+
+fn main() {
+    fizzbuzz(30)
+}

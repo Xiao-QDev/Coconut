@@ -1,0 +1,35 @@
+package main
+
+fn main() {
+    pio.Println("=== While Loop: Sum 1-100 ===")
+    var sum int = 0
+    var i int = 1
+    while i <= 100 {
+        sum = sum + i
+        i = i + 1
+    }
+    pio.Println("Sum = ", sum)
+
+    pio.Println()
+    pio.Println("=== Break: First number > 50 ===")
+    var n int = 1
+    while true {
+        if n * n > 50 {
+            pio.Println("Found: ", n, " (", n, "^2 = ", n * n, ")")
+            break
+        }
+        n = n + 1
+    }
+
+    pio.Println()
+    pio.Println("=== Continue: Skip multiples of 3 ===")
+    var j int = 0
+    while j < 15 {
+        j = j + 1
+        if j % 3 == 0 {
+            continue
+        }
+        pio.Print(j)
+        pio.Print(" ")
+    }
+}

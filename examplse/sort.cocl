@@ -1,0 +1,41 @@
+package main
+
+fn print_array(arr [10]int, n int) {
+    for i := 0; i < n; i++ {
+        pio.Print(arr[i])
+        pio.Print(" ")
+    }
+    pio.Println()
+}
+
+fn main() {
+    pio.Println("=== Bubble Sort ===")
+
+    var arr [10]int
+    arr[0] = 64
+    arr[1] = 34
+    arr[2] = 25
+    arr[3] = 12
+    arr[4] = 22
+    arr[5] = 11
+    arr[6] = 90
+    arr[7] = 1
+    arr[8] = 45
+    arr[9] = 78
+
+    pio.Print("Before: ")
+    print_array(arr, 10)
+
+    for i := 0; i < 9; i++ {
+        for j := 0; j < 9 - i; j++ {
+            if arr[j] > arr[j + 1] {
+                temp := arr[j]
+                arr[j] = arr[j + 1]
+                arr[j + 1] = temp
+            }
+        }
+    }
+
+    pio.Print("After:  ")
+    print_array(arr, 10)
+}
