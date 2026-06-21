@@ -47,8 +47,6 @@ Create a source file named `example.cocl`:
 ```coconut
 package main
 
-import pio
-
 fn main() int {
     pio.println("Coconut Compiler Demonstration")
     
@@ -57,9 +55,9 @@ fn main() int {
         sum = sum + i
     }
     
-    pio.print("Computed sum: ")
-    pio.printi(sum)
-    pio.println("")
+    pio.Print("Computed sum: ")
+    pio.Printi(sum)
+    pio.Println("")
 
     return 0
 }
@@ -110,11 +108,11 @@ fn main() int {
 ```coconut
 // Conditional branching
 if value > threshold {
-    pio.println("Above threshold")
+    pio.Println("Above threshold")
 } else if value == threshold {
-    pio.println("At threshold")
+    pio.Println("At threshold")
 } else {
-    pio.println("Below threshold")
+    pio.Println("Below threshold")
 }
 
 // Three-part for loop
@@ -146,9 +144,9 @@ The standard print I/O module provides basic output functionality:
 
 | Function | Description |
 |----------|-------------|
-| `pio.println(s)` | Output string followed by newline |
-| `pio.print(s)` | Output string without trailing newline |
-| `pio.printi(n)` | Output integer value |
+| `pio.Println(s)` | Output string followed by newline |
+| `pio.Print(s)` | Output string without trailing newline |
+| `pio.Printi(n)` | Output integer value |
 
 ---
 
