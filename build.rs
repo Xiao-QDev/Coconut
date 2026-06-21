@@ -2,6 +2,8 @@ fn main() {
     // LLD C++ 包装器（统一放在 runtime/）
     println!("cargo:rustc-link-search=native=/home/xiaoq/Projects/Coconut/runtime");
     println!("cargo:rustc-link-lib=static=lld_wrapper");
+    // whole-archive 强制链接所有 C runtime 符号（JIT 需要解析这些函数）
+    println!("cargo:rustc-link-lib=static:+whole-archive=str_helpers");
     // 系统 LLVM 22 静态库
     println!("cargo:rustc-link-search=native=/home/xiaoq/LLVM-22.1.0-Linux-X64/lib");
     println!("cargo:rustc-link-lib=static=LLVMCore");
@@ -60,4 +62,7 @@ fn main() {
     println!("cargo:rustc-link-lib=pthread");
     println!("cargo:rustc-link-lib=dl");
     println!("cargo:rustc-link-lib=m");
+
+    // 导出所有符号，使 JIT 能解析 C runtime 函数
+    println!("cargo:rustc-link-arg=-rdynamic");
 }

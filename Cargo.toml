@@ -1,12 +1,7 @@
 [package]
-name = "Coconut_Compiler"
+name = "cococ"
 version = "0.0.1"
 edition = "2024"
-
-
-[[bin]]
-name = "cococ"
-path = "src/main.rs"
 
 [dependencies]
 inkwell = { version = "0.9.0", features = ["llvm22-1"] }
